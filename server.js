@@ -5,7 +5,7 @@ const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser');
 const download = require('image-downloader');
-const vision = require('@google-cloud/vision');
+
 const download2 = require('download');
 var download1 = require('download-file');
 
