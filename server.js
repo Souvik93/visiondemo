@@ -40,7 +40,7 @@ app.get('/', (req, res) => {
 // Main Api
 app.post('/getAddressDetails', (req, res) => {
 
-  var imgName = "/dist/s.jpg";
+  var imgName = "/dist/card.jpg";
 
   function base64_encode(file) {
     // read binary data
