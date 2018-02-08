@@ -120,6 +120,15 @@ app.post('/getAddressDetails', (req, res) => {
             //console.log(body.addresses[0].api_output[0].delivery_line_1);
             responseText = JSON.parse(body);
             console.log(responseText);
+            if(responseText.addresses[0]==undefined || responseText.addresses[0].api_output[0]==undefined)
+            {
+                console.log("Failed.. Not an US Address");
+                res.send({"Status": "Failed.. Unable to classify The Address"});
+            }
+
+            else{
+
+
             //console.log(responseText.addresses[0].api_output[0].delivery_line_1);
             set_attributes.delivery_line = responseText.addresses[0].api_output[0].delivery_line_1;
 
@@ -132,10 +141,17 @@ app.post('/getAddressDetails', (req, res) => {
             responseObject.set_attributes = set_attributes;
             console.log("Done....");
             res.send(responseObject);
+          }
         });
 
     });
 })
+.catch((err) => {
+       //console.log(err);
+      res.send({
+          "Status": "Unable To Download Image"
+      });
+   });
 
 })
 
