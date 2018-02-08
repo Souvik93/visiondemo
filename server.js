@@ -5,6 +5,9 @@ const http = require('http');
 const bodyParser = require('body-parser');
 const app = express();
 var request = require("request");
+var fs = require("fs");
+
+const download2 = require('download');
 
 // Parsers for POST data
 app.use(bodyParser.json());
@@ -37,6 +40,17 @@ app.get('/', (req, res) => {
 // Main Api
 app.post('/getAddressDetails', (req, res) => {
 
+  var imgName = "/dist/card.jpg";
+  var options2={
+      rejectUnauthorized: false
+  }
+
+  download2(req.body.imgurl,options2).then(data => {
+
+  fs.writeFileSync('dist/card.jpg', data);
+
+
+
     var imageurl = req.body.imgurl;
 
     var options = {
@@ -53,9 +67,10 @@ app.post('/getAddressDetails', (req, res) => {
         body: {
             requests: [{
                 image: {
-                    source: {
-                        imageUri: imageurl
-                    }
+                    // source: {
+                    //     imageUri: imageurl
+                    // }
+                    content:fs.createReadStream(__dirname + imgName)
                 },
                 features: [{
                     type: 'TEXT_DETECTION',
@@ -68,6 +83,8 @@ app.post('/getAddressDetails', (req, res) => {
 
     request(options, function(error, response, body) {
         if (error) throw new Error(error);
+
+        console.log(body);
         googleText = body.responses[0].textAnnotations[0].description;
         var options = {
             method: 'POST',
@@ -103,7 +120,13 @@ app.post('/getAddressDetails', (req, res) => {
         });
 
     });
-
+})
+.catch((err) => {
+       //console.log(err);
+      res.send({
+          "Status": "Unable To Download Image"
+      });
+   });
 })
 
 
