@@ -40,7 +40,18 @@ app.get('/', (req, res) => {
 // Main Api
 app.post('/getAddressDetails', (req, res) => {
 
-  var imgName = "/dist/card.jpg";
+  var imgName = "/dist/s.jpg";
+
+  function base64_encode(file) {
+    // read binary data
+    var bitmap = fs.readFileSync(file);
+    // convert binary data to base64 encoded string
+    return new Buffer(bitmap).toString('base64');
+}
+
+var base64str = base64_encode(__dirname + imgName);
+
+
   var options2={
       rejectUnauthorized: false
   }
@@ -52,6 +63,8 @@ app.post('/getAddressDetails', (req, res) => {
 
 
     var imageurl = req.body.imgurl;
+    var tst=fs.createReadStream(__dirname + imgName);
+    console.log(tst);
 
     var options = {
         method: 'POST',
@@ -70,7 +83,8 @@ app.post('/getAddressDetails', (req, res) => {
                     // source: {
                     //     imageUri: imageurl
                     // }
-                    content:fs.createReadStream(__dirname + imgName)
+                    //content:fs.createReadStream('dist/card.jpg')
+                    content:base64str
                 },
                 features: [{
                     type: 'TEXT_DETECTION',
@@ -121,12 +135,7 @@ app.post('/getAddressDetails', (req, res) => {
 
     });
 })
-.catch((err) => {
-       //console.log(err);
-      res.send({
-          "Status": "Unable To Download Image"
-      });
-   });
+
 })
 
 
