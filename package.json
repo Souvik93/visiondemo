@@ -1,7 +1,7 @@
 {
-  "name": "Address Classification",
+  "name": "address",
   "version": "0.0.1",
-  "description": "Address Classification Api Wrapper",
+  "description": "address classification api wrapper",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
