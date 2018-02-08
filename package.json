@@ -1,7 +1,7 @@
 {
-  "name": "car",
-  "version": "1.0.0",
-  "description": "predicting car details using carimage",
+  "name": "Address Classification",
+  "version": "0.0.1",
+  "description": "Address Classification Api Wrapper",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
@@ -9,10 +9,7 @@
   "author": "Souvik Das",
   "license": "ISC",
   "dependencies": {
-    "download": "^6.2.5",
-    "download-file": "^0.1.5",
     "express": "^4.16.2",
-    "image-downloader": "^3.3.0",
     "nodemon": "^1.14.11",
     "request": "^2.83.0"
   }
