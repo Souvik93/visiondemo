@@ -61,10 +61,10 @@ app.post('/getAddressDetails', (req, res) => {
   fs.writeFileSync('dist/card.jpg', data);
 
 
-  var base64str = base64_encode(__dirname + imgName);
+  //var base64str = base64_encode(__dirname + imgName);
     var imageurl = req.body.imgurl;
     var tst=fs.createReadStream(__dirname + imgName);
-    console.log(tst);
+    //console.log(tst);
 
     var options = {
         method: 'POST',
@@ -84,7 +84,7 @@ app.post('/getAddressDetails', (req, res) => {
                     //     imageUri: imageurl
                     // }
                     //content:fs.createReadStream('dist/card.jpg')
-                    content:base64str
+                    content:base64_encode(__dirname + imgName)
                 },
                 features: [{
                     type: 'TEXT_DETECTION',
@@ -119,6 +119,7 @@ app.post('/getAddressDetails', (req, res) => {
 
             //console.log(body.addresses[0].api_output[0].delivery_line_1);
             responseText = JSON.parse(body);
+            console.log(responseText);
             //console.log(responseText.addresses[0].api_output[0].delivery_line_1);
             set_attributes.delivery_line = responseText.addresses[0].api_output[0].delivery_line_1;
 
