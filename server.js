@@ -49,7 +49,7 @@ app.post('/getAddressDetails', (req, res) => {
     return new Buffer(bitmap).toString('base64');
 }
 
-var base64str = base64_encode(__dirname + imgName);
+
 
 
   var options2={
@@ -61,7 +61,7 @@ var base64str = base64_encode(__dirname + imgName);
   fs.writeFileSync('dist/card.jpg', data);
 
 
-
+  var base64str = base64_encode(__dirname + imgName);
     var imageurl = req.body.imgurl;
     var tst=fs.createReadStream(__dirname + imgName);
     console.log(tst);
