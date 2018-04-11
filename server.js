@@ -96,7 +96,12 @@ app.post('/getAddressDetails', (req, res) => {
     };
 
     request(options, function(error, response, body) {
-        if (error) throw new Error(error);
+        if (error) 
+	{
+		set_attributes.jsonAPIError="Yes";
+		responseObject.set_attributes = set_attributes;
+    		res.send(responseObject);
+	}
 
         console.log(body);
         googleText = body.responses[0].textAnnotations[0].description;
@@ -115,7 +120,11 @@ app.post('/getAddressDetails', (req, res) => {
         };
 
         request(options, function(error, response, body) {
-            if (error) throw new Error(error);
+            if (error){
+		    set_attributes.jsonAPIError="Yes";
+	            responseObject.set_attributes = set_attributes;
+                    res.send(responseObject);
+	    }
 
             //console.log(body.addresses[0].api_output[0].delivery_line_1);
             responseText = JSON.parse(body);
