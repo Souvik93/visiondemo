@@ -123,13 +123,16 @@ app.post('/getAddressDetails', (req, res) => {
             if(responseText.addresses[0]==undefined || responseText.addresses[0].api_output[0]==undefined)
             {
                 console.log("Failed.. Not an US Address");
-                res.send({"Status": "Failed.. Unable to classify The Address"});
+                set_attributes.jsonAPIError="Yes";
+	            responseObject.set_attributes = set_attributes;
+                res.send(responseObject);
             }
 
             else{
 
 
             //console.log(responseText.addresses[0].api_output[0].delivery_line_1);
+            set_attributes.jsonAPIError="No";
             set_attributes.delivery_line = responseText.addresses[0].api_output[0].delivery_line_1;
 
             set_attributes.city_name = responseText.addresses[0].api_output[0].components.city_name;
@@ -148,9 +151,9 @@ app.post('/getAddressDetails', (req, res) => {
 })
 .catch((err) => {
        //console.log(err);
-      res.send({
-          "Status": "Unable To Download Image"
-      });
+    set_attributes.jsonAPIError="Yes";
+	responseObject.set_attributes = set_attributes;
+    res.send(responseObject);
    });
 
 })
